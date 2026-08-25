@@ -1,0 +1,18 @@
+{
+  "id": "com.custom.guest-isolation",
+  "name": "Guest Auto-Isolation Plugin",
+  "description": "Auto-provisions isolated client guest users with 1-click tokenized invites and strict channel isolation for Mattermost Team Edition.",
+  "homepage_url": "https://github.com/kazimshah39/mattermost-plugin-guest-isolation",
+  "support_url": "https://github.com/kazimshah39/mattermost-plugin-guest-isolation/issues",
+  "version": "0.1.0",
+  "min_server_version": "7.0.0",
+  "server": {
+    "executables": {
+      "linux-amd64": "server/dist/plugin-linux-amd64",
+      "linux-arm64": "server/dist/plugin-linux-arm64",
+      "darwin-amd64": "server/dist/plugin-darwin-amd64",
+      "darwin-arm64": "server/dist/plugin-darwin-arm64",
+      "windows-amd64": "server/dist/plugin-windows-amd64.exe"
+    }
+  }
+}

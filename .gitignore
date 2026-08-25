@@ -1,0 +1,18 @@
+# Binaries and build artifacts
+server/dist/
+dist/
+*.tar.gz
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Dependencies
+vendor/
+
+# IDE & OS files
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~

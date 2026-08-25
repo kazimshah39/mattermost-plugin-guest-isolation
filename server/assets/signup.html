@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join Project Workspace</title>
+  <style>
+    :root {
+      --primary: #1e5cb3;
+      --primary-hover: #164789;
+      --bg: #f4f6f8;
+      --card-bg: #ffffff;
+      --text: #2c3e50;
+      --text-muted: #6c757d;
+      --border: #e2e8f0;
+      --success: #28a745;
+      --danger: #dc3545;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--border);
+      width: 100%;
+      max-width: 440px;
+      padding: 36px 32px;
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .logo svg {
+      width: 48px;
+      height: 48px;
+      fill: var(--primary);
+    }
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    p.subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .channel-badge {
+      display: inline-block;
+      background: #eaf2fc;
+      color: var(--primary);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      transition: border-color 0.2s;
+    }
+    input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(30, 92, 179, 0.15);
+    }
+    .hint {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    button.submit-btn {
+      width: 100%;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s;
+    }
+    button.submit-btn:hover {
+      background: var(--primary-hover);
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .alert {
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 18px;
+      display: none;
+    }
+    .alert-danger {
+      background: #fdf2f2;
+      color: var(--danger);
+      border: 1px solid #f8d7da;
+    }
+    .alert-success {
+      background: #f0fff4;
+      color: var(--success);
+      border: 1px solid #c3e6cb;
+    }
+    .success-view {
+      display: none;
+      text-align: center;
+    }
+    .success-icon {
+      font-size: 48px;
+      color: var(--success);
+      margin-bottom: 16px;
+    }
+    .app-notice {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/>
+      </svg>
+    </div>
+
+    <div id="signup-container">
+      <h1>Join Project Workspace</h1>
+      <p class="subtitle">You have been invited to collaborate in <span class="channel-badge" id="channel-name">#{{.ChannelName}}</span></p>
+
+      <div id="error-alert" class="alert alert-danger"></div>
+
+      <form id="signup-form">
+        <input type="hidden" id="token" value="{{.Token}}">
+        
+        <div class="form-group">
+          <label for="fullname">Full Name</label>
+          <input type="text" id="fullname" name="fullname" placeholder="e.g. Sarah Connor" required autofocus>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="e.g. sarah@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Choose Password</label>
+          <input type="password" id="password" name="password" minlength="8" placeholder="At least 8 characters" required>
+          <div class="hint">Use this password to log in on desktop and mobile apps.</div>
+        </div>
+
+        <button type="submit" id="submit-btn" class="submit-btn">Create Account & Join Chat</button>
+      </form>
+    </div>
+
+    <div id="success-view" class="success-view">
+      <div class="success-icon">✓</div>
+      <h1>Account Created!</h1>
+      <p class="subtitle">Your account is ready. You have been added to <span class="channel-badge" id="success-channel">#{{.ChannelName}}</span>.</p>
+      
+      <button id="open-chat-btn" class="submit-btn">Open Web Chat</button>
+
+      <div class="app-notice">
+        <strong>Mobile & Desktop Apps:</strong> You can also log in to the official Mattermost app using your email, password, and this server URL.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('signup-form');
+    const errorAlert = document.getElementById('error-alert');
+    const submitBtn = document.getElementById('submit-btn');
+    const signupContainer = document.getElementById('signup-container');
+    const successView = document.getElementById('success-view');
+    const openChatBtn = document.getElementById('open-chat-btn');
+
+    let targetRedirect = '/login';
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorAlert.style.display = 'none';
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Creating account...';
+
+      const payload = {
+        token: document.getElementById('token').value,
+        name: document.getElementById('fullname').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        password: document.getElementById('password').value
+      };
+
+      try {
+        const response = await fetch('/plugins/com.custom.guest-isolation/api/v1/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to create account. Please try again.');
+        }
+
+        targetRedirect = data.redirect_url || '/login';
+        signupContainer.style.display = 'none';
+        successView.style.display = 'block';
+
+      } catch (err) {
+        errorAlert.innerText = err.message;
+        errorAlert.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Create Account & Join Chat';
+      }
+    });
+
+    openChatBtn.addEventListener('click', () => {
+      window.location.href = targetRedirect;
+    });
+  </script>
+</body>
+</html>
